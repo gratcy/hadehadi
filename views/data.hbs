@@ -1,0 +1,59 @@
+<table id="sTable" class="table table-bordered table-striped">
+<thead>
+  <tr>
+    <th>Create Date</th>
+    <th>Issued By</th>
+    <th>NIK</th>
+    <th>Nama</th>
+    <th>Tempat Lahir</th>
+    <th>Tanggal Lahir</th>
+    <th>Jenis Kelamin</th>
+    <th>Gol Darah</th>
+    <th>Alamat</th>
+    <th>RT</th>
+    <th>RW</th>
+    <th>Kelurahan</th>
+    <th>Kecamatan</th>
+    <th>Kabupaten</th>
+    <th>Provinsi</th>
+    <th>Agama</th>
+    <th>Status</th>
+    <th>Pekerjaan</th>
+    <th>Kewarganegaraan</th>
+    <th>Masa Berlaku</th>
+    <th>Biometric</th>
+    <th>Foto</th>
+    <th>TTD</th>
+  </tr>
+</thead>
+<tbody>
+{{#each data}}
+  <tr>
+    <td>{{ create_date }}</td>
+    <td>{{ issued_by }}</td>
+    <td>{{ nik }}</td>
+    <td>{{ nama }}</td>
+    <td>{{ tmp_lahir }}</td>
+    <td>{{ tgl_lahir }}</td>
+    <td>{{ jns_kelamin }}</td>
+    <td>{{ gol_darah }}</td>
+    <td>{{ alamat }}</td>
+    <td>{{ rt }}</td>
+    <td>{{ rw }}</td>
+    <td>{{ kel }}</td>
+    <td>{{ kec }}</td>
+    <td>{{ kab }}</td>
+    <td>{{ prov }}</td>
+    <td>{{ agama }}</td>
+    <td>{{ status }}</td>
+    <td>{{ pekerjaan }}</td>
+    <td>{{ kewarganegaraan }}</td>
+    <td>{{ masa_berlaku }}</td>
+    <td>{{ biometric }}</td>
+    <td>{{ foto }}</td>
+    <td>{{ ttd }}</td>
+  </tr>
+{{/each}}
+</tbody>
+</table>
+
