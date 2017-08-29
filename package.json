@@ -1,0 +1,32 @@
+{
+  "name": "adira",
+  "version": "1.0.0",
+  "description": "Adira",
+  "main": "start.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "body-parser": "^1.17.2",
+    "crypto": "^1.0.1",
+    "crypto-js": "^3.1.9-1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "express-myconnection": "^1.0.4",
+    "express-session": "^1.15.5",
+    "mssql": "^4.0.4",
+    "q": "^1.5.0",
+    "q-": "0.0.0",
+    "underscore": "^1.8.3"
+  }
+}
