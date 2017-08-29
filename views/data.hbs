@@ -51,9 +51,9 @@
     <td>{{ pekerjaan }}</td>
     <td>{{ kewarganegaraan }}</td>
     <td>{{ masa_berlaku }}</td>
-    <td>{{ biometric }}</td>
-    <td>{{ foto }}</td>
-    <td>{{ ttd }}</td>
+    <td><img src="data:image/png;base64,{{ biometric }}"></td>
+    <td><img src="data:image/png;base64,{{ foto }}"></td>
+    <td><img src="data:image/png;base64,{{ ttd }}"></td>
   </tr>
 {{/each}}
 </tbody>
