@@ -30,6 +30,7 @@ var express = require('express'),
 	db  = require('express-myconnection'),
 	helpers = require('./helpers/functions'),
 	bodyParser = require('body-parser');
+
 var app = express();
 var q = require('q');
 
@@ -39,6 +40,7 @@ global.helpers = helpers;
 var index = require('./routes/index');
 var users = require('./routes/users');
 var ektp = require('./routes/ektp');
+var show = require('./routes/show');
 
 app.set('port', config.web.port);
 app.set('host', config.web.host);
@@ -63,8 +65,10 @@ app.engine('.hbs', hbsHelpers.engine);
 app.set('view engine', '.hbs');
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/assets', express.static('assets'));
 
 app.get('/', index.main);
+app.get('/data', show.view_data);
 app.post('/users', users.get_users);
 app.post('/ektp', ektp.ektp);
 
