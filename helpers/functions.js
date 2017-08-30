@@ -1,3 +1,4 @@
+var crypto = require('crypto');
 var cryptoLib = require('cryptlib');
 var encryptionKey = 'kopikoP1!';
 var iv = "1234123412341234";
