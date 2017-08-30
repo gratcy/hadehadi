@@ -20,7 +20,7 @@ exports.get_users = async function(req, res) {
 			}
 		}
 	}
-	catch {
-		handleException();
+	catch (error){
+		console.log(error);
 	}
 };
