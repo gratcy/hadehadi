@@ -1,6 +1,6 @@
 import models_users from '../models/models_users';
 
-exports.get_users = async function(req, res) {
+exports.get_users = function(req, res) {
 	var input = req.body;
 	var username = helpers.decryptAES(input.username);
 	var pass = helpers.decryptAES(input.pass);
@@ -10,14 +10,17 @@ exports.get_users = async function(req, res) {
 			res.send({error: {status: -1}, message: 'Input incomplete!'});
 		}
 		else {
-			var users = await models_users.get_users(username,pass);
-			sql.close();
-			if (users.recordsets) {
-				res.send({error: {status: 1}, users: users.recordsets[0]});
-			}
-			else {
-				res.send({error: {status: -1}, message: 'Invalid username and password!'});
-			}
+			sql.connect(dbConf, function (err) {
+				var request = new sql.Request();
+				request.query("SELECT email,username,pass,fullname,create_date,access_date FROM users WHERE username='"+username+"' AND pass='"+helpers.generateHash(pass)+"'", function (err, result) {
+					if (err) {
+						res.send({error: {status: -1}, message: 'Invalid username and password!'});
+					}
+					else {
+						res.send({error: {status: 1}, users: result});
+					}
+				});
+			});
 		}
 	}
 	catch (error){
