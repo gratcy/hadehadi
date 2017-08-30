@@ -2,11 +2,14 @@ import models_users from '../models/models_users';
 
 exports.get_users = async function(req, res) {
 	var input = req.body;
-	if (!input.username || !input.pass) {
+	var username = helpers.decryptAES(input.username);
+	var pass = helpers.decryptAES(input.pass);
+	
+	if (!username || !pass) {
 		res.send({error: {status: -1}, message: 'Input incomplete!'});
 	}
 	else {
-		let users = await models_users.get_users(input.username,input.pass);
+		let users = await models_users.get_users(username,pass);
 		sql.close();
 		if (users.recordsets) {
 			res.send({error: {status: 1}, users: users.recordsets[0]});
