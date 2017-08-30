@@ -9,7 +9,7 @@ exports.get_users = async function(req, res) {
 		res.send({error: {status: -1}, message: 'Input incomplete!'});
 	}
 	else {
-		let users = await models_users.get_users(username,pass);
+		var users = await models_users.get_users(username,pass);
 		sql.close();
 		if (users.recordsets) {
 			res.send({error: {status: 1}, users: users.recordsets[0]});
