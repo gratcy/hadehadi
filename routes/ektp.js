@@ -27,8 +27,6 @@ exports.ektp = async function(req, res) {
 	var foto = helpers.decryptAES(input.foto);
 	var ttd = helpers.decryptAES(input.ttd);
 	
-	sql.close();
-	
 	if (nik) {
 		let checkNIK = await models_ektp.check_ektp(nik);
 		sql.close();

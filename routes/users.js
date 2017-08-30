@@ -4,7 +4,7 @@ exports.get_users = async function(req, res) {
 	var input = req.body;
 	var username = helpers.decryptAES(input.username);
 	var pass = helpers.decryptAES(input.pass);
-	sql.close();
+	
 	if (!username || !pass) {
 		res.send({error: {status: -1}, message: 'Input incomplete!'});
 	}
