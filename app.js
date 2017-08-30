@@ -4,11 +4,9 @@ import config from './config/settings';
 var path = require('path'),
 	http = require('http'),
     fs = require('fs'),
-    sql = require('mssql'),
 	_ = require("underscore");
 
 global.conf = config;
-global.sql = sql;
 global._ = _;
 
 const dbConf = {
@@ -79,5 +77,3 @@ app.use(function(req, res, next){
 http.createServer(app).listen(app.get('port'),app.get('host'), function(){
 	console.log('Express server listening on host: '+app.get('host')+' port: ' + app.get('port'));
 });
-
-sql.close();

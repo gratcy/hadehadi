@@ -1,7 +1,16 @@
-import models_ektp from '../models/models_ektp';
+var sql = require('mssql');
 
-exports.view_data = async function(req, res) {
-	let ektp = await models_ektp.get_ektp();
-	sql.close();
-	res.render('data',{data:ektp.recordset});
+exports.view_data = function(req, res) {
+	sql.connect(dbConf, function (err) {
+		var request = new sql.Request();
+		request.query("SELECT * FROM ektp", function (err, result) {
+			sql.close();
+			if (err) {
+				res.render('data',{data:{}});
+			}
+			else {
+				res.render('data',{data:result.recordset});
+			}
+		});
+	});
 };

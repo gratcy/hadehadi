@@ -1,4 +1,4 @@
-import models_ektp from '../models/models_ektp';
+var sql = require('mssql');
 
 exports.ektp = async function(req, res) {
 	var input = req.body;
@@ -28,23 +28,30 @@ exports.ektp = async function(req, res) {
 	var ttd = helpers.decryptAES(input.ttd);
 	
 	if (nik) {
-		var checkNIK = await models_ektp.check_ektp(nik);
-		sql.close();
-		
-		if (checkNIK.rowsAffected > 0) {
-			res.send({error: {status: -1}, message: 'EKTP exists!'});
-		}
-		else {
-			sql.connect(dbConf).then(pool => {
-				return pool.request().query("insert into ektp (create_date,issued_by,nik,nama,tmp_lahir,tgl_lahir,jns_kelamin,gol_darah,alamat,rt,rw,kel,kec,kab,prov,agama,status,pekerjaan,kewarganegaraan,masa_berlaku,biometric,foto,ttd) values ('"+create_date+"','"+issued_by+"','"+nik+"','"+nama+"','"+tmp_lahir+"','"+tgl_lahir+"','"+jns_kelamin+"','"+gol_darah+"','"+alamat+"','"+rt+"','"+rw+"','"+kel+"','"+kec+"','"+kab+"','"+prov+"','"+agama+"','"+status+"','"+pekerjaan+"','"+kewarganegaraan+"','"+masa_berlaku+"','"+biometric+"','"+foto+"','"+ttd+"')")
-			}).then(result => {
-				sql.close();
-				res.send({error: {status: 1}, message: 'Success insert data!'});
-			}).catch(err => {
-				sql.close();
-				res.send({error: {status: -1}, message: 'Failed insert data!',err});
+		sql.connect(dbConf, function (err) {
+			var request = new sql.Request();
+			request.query("SELECT * FROM ektp WHERE nik='"+nik+"'", function (err, result) {
+				if (err) {
+					sql.close();
+					res.send({error: {status: -1}, message: 'Failed insert data!',err});
+				}
+				else {
+					if (checkNIK.rowsAffected > 0) {
+						res.send({error: {status: -1}, message: 'EKTP exists!'});
+					}
+					else {
+						request.query("insert into ektp (create_date,issued_by,nik,nama,tmp_lahir,tgl_lahir,jns_kelamin,gol_darah,alamat,rt,rw,kel,kec,kab,prov,agama,status,pekerjaan,kewarganegaraan,masa_berlaku,biometric,foto,ttd) values ('"+create_date+"','"+issued_by+"','"+nik+"','"+nama+"','"+tmp_lahir+"','"+tgl_lahir+"','"+jns_kelamin+"','"+gol_darah+"','"+alamat+"','"+rt+"','"+rw+"','"+kel+"','"+kec+"','"+kab+"','"+prov+"','"+agama+"','"+status+"','"+pekerjaan+"','"+kewarganegaraan+"','"+masa_berlaku+"','"+biometric+"','"+foto+"','"+ttd+"')", function (err2, result2) {
+							if (err2) {
+								res.send({error: {status: -1}, message: 'Failed insert data!',err});
+							}
+							else {
+								res.send({error: {status: 1}, message: 'Success insert data!'});
+							}
+						});
+					}
+				}
 			});
-		}
+		});
 	}
 	else {
 		res.send({error: {status: -1}, message: 'Failed insert data!'});
