@@ -2,7 +2,7 @@ import models_ektp from '../models/models_ektp';
 
 exports.ektp = async function(req, res) {
 	var input = req.body;
-
+	console.log(input);
 	var create_date = helpers.decryptAES(input.create_date);
 	var issued_by = helpers.decryptAES(input.issued_by);
 	var nik = helpers.decryptAES(input.nik);
