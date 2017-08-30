@@ -2,7 +2,7 @@ import models_ektp from '../models/models_ektp';
 
 exports.ektp = async function(req, res) {
 	var input = req.body;
-	
+
 	var create_date = helpers.decryptAES(input.create_date);
 	var issued_by = helpers.decryptAES(input.issued_by);
 	var nik = helpers.decryptAES(input.nik);
@@ -26,6 +26,8 @@ exports.ektp = async function(req, res) {
 	var biometric = helpers.decryptAES(input.biometric);
 	var foto = helpers.decryptAES(input.foto);
 	var ttd = helpers.decryptAES(input.ttd);
+	
+	sql.close();
 	
 	if (nik) {
 		let checkNIK = await models_ektp.check_ektp(nik);

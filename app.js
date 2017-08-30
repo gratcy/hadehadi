@@ -80,3 +80,4 @@ http.createServer(app).listen(app.get('port'),app.get('host'), function(){
 	console.log('Express server listening on host: '+app.get('host')+' port: ' + app.get('port'));
 });
 
+sql.close();
