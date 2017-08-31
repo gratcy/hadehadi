@@ -33,11 +33,13 @@ exports.ektp = async function(req, res) {
 			request.query("SELECT * FROM ektp WHERE nik='"+nik+"'", function (err, result) {
 				if (err) {
 					sql.close();
+					console.log('NIK exists!');
 					res.send({error: {status: -1}, message: 'NIK exists!',err});
 				}
 				else {
 					if (result.rowsAffected > 0) {
 						sql.close();
+						console.log('EKTP exists!');
 						res.send({error: {status: -1}, message: 'EKTP exists!'});
 					}
 					else {
@@ -48,6 +50,7 @@ exports.ektp = async function(req, res) {
 							}
 							else {
 								sql.close();
+								console.log('Success insert data!');
 								res.send({error: {status: 1}, message: 'Success insert data!'});
 							}
 						});
@@ -57,6 +60,7 @@ exports.ektp = async function(req, res) {
 		});
 	}
 	else {
+		console.log('Failed insert data!');
 		res.send({error: {status: -1}, message: 'Failed insert data!'});
 	}
 };
