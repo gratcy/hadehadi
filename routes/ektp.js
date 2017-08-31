@@ -33,7 +33,7 @@ exports.ektp = async function(req, res) {
 			request.query("SELECT * FROM ektp WHERE nik='"+nik+"'", function (err, result) {
 				if (err) {
 					sql.close();
-					res.send({error: {status: -1}, message: 'Failed insert data!',err});
+					res.send({error: {status: -1}, message: 'NIK exists!',err});
 				}
 				else {
 					if (result.rowsAffected > 0) {
