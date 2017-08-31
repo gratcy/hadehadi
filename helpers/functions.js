@@ -19,8 +19,13 @@ var encryptAES = function (plainText){
 }
 
 var decryptAES = function (encryptedString){
-	var shaKey = cryptoLib.getHashSha256(encryptionKey, 32);
-	return cryptoLib.decrypt(encryptedString, shaKey, iv);
+	if (encryptedString) {
+		var shaKey = cryptoLib.getHashSha256(encryptionKey, 32);
+		return cryptoLib.decrypt(encryptedString, shaKey, iv);
+	}
+	else {
+		return '';
+	}
 }
 
 module.exports = {
