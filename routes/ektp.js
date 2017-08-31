@@ -36,15 +36,18 @@ exports.ektp = async function(req, res) {
 					res.send({error: {status: -1}, message: 'Failed insert data!',err});
 				}
 				else {
-					if (checkNIK.rowsAffected > 0) {
+					if (result.rowsAffected > 0) {
+						sql.close();
 						res.send({error: {status: -1}, message: 'EKTP exists!'});
 					}
 					else {
 						request.query("insert into ektp (create_date,issued_by,nik,nama,tmp_lahir,tgl_lahir,jns_kelamin,gol_darah,alamat,rt,rw,kel,kec,kab,prov,agama,status,pekerjaan,kewarganegaraan,masa_berlaku,biometric,foto,ttd) values ('"+create_date+"','"+issued_by+"','"+nik+"','"+nama+"','"+tmp_lahir+"','"+tgl_lahir+"','"+jns_kelamin+"','"+gol_darah+"','"+alamat+"','"+rt+"','"+rw+"','"+kel+"','"+kec+"','"+kab+"','"+prov+"','"+agama+"','"+status+"','"+pekerjaan+"','"+kewarganegaraan+"','"+masa_berlaku+"','"+biometric+"','"+foto+"','"+ttd+"')", function (err2, result2) {
 							if (err2) {
+								sql.close();
 								res.send({error: {status: -1}, message: 'Failed insert data!',err});
 							}
 							else {
+								sql.close();
 								res.send({error: {status: 1}, message: 'Success insert data!'});
 							}
 						});
