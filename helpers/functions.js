@@ -20,9 +20,9 @@ var encryptAES = function (plainText){
 
 var decryptAES = function (encryptedString){
 	if (encryptedString) {
-		//~ var shaKey = cryptoLib.getHashSha256(encryptionKey, 32);
-		//~ return cryptoLib.decrypt(encryptedString, shaKey, iv);
-		return encryptedString;
+		var shaKey = cryptoLib.getHashSha256(encryptionKey, 32);
+		return cryptoLib.decrypt(encryptedString, shaKey, iv);
+		//~ return encryptedString;
 	}
 	else {
 		return '';
