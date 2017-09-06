@@ -4,11 +4,9 @@ import config from './config/settings';
 var path = require('path'),
 	http = require('http'),
     fs = require('fs'),
-	_ = require("underscore"),
-	sql = require('mssql');
+	_ = require("underscore");
 
 global.conf = config;
-global.sql = sql;
 global._ = _;
 
 const dbConf = {
@@ -16,14 +14,10 @@ const dbConf = {
     password: conf.mssql.password,
     server: conf.mssql.host,
     database: conf.mssql.db,
+ 
     options: {
-        //~ encrypt: true
-    },
-	pool: {
-		max: 10,
-		min: 0,
-		idleTimeoutMillis: 30000
-	}
+        encrypt: true
+    }
 }
 
 global.dbConf = dbConf;
@@ -31,6 +25,7 @@ global.dbConf = dbConf;
 var express = require('express'),
 	session = require('express-session'),
 	hbs = require('express-handlebars'),
+	db  = require('express-myconnection'),
 	helpers = require('./helpers/functions'),
 	bodyParser = require('body-parser');
 
@@ -67,7 +62,7 @@ app.use(session({
 app.engine('.hbs', hbsHelpers.engine);
 app.set('view engine', '.hbs');
 app.use( bodyParser.json() );
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '1000mb' }));
 app.use('/assets', express.static('assets'));
 
 app.get('/', index.main);
