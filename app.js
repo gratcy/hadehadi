@@ -27,13 +27,15 @@ var express = require('express'),
 	hbs = require('express-handlebars'),
 	db  = require('express-myconnection'),
 	helpers = require('./helpers/functions'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	sql = require('mssql');
 
 var app = express();
 var q = require('q');
 
 global.q = q;
 global.helpers = helpers;
+global.sql = sql;
 
 var index = require('./routes/index');
 var users = require('./routes/users');

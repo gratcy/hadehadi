@@ -21,7 +21,7 @@ exports.get_ektp = function() {
     var deferred = q.defer();
 	var pool = sql.connect(dbConf, function (err) {
 		var request = new sql.Request();
-		request.query("SELECT * FROM ektp", function (err, result) {
+		request.query("SELECT a.*,b.fullname FROM ektp a LEFT JOIN users b ON a.issued_by=b.uid", function (err, result) {
 			if (err) {
 				deferred.reject(err);
 			}
