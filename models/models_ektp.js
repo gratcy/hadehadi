@@ -33,4 +33,3 @@ exports.get_ektp = function() {
 	
     return deferred.promise;
 };
-

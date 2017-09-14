@@ -1,5 +1,5 @@
 import models_ektp from '../models/models_ektp';
-
+var sql = require('mssql');
 exports.ektp = async function(req, res) {
 	var input = req.body;
 	var create_date = helpers.decryptAES(input.create_date);
@@ -25,18 +25,13 @@ exports.ektp = async function(req, res) {
 	var biometric = helpers.decryptAES(input.biometric);
 	var foto = helpers.decryptAES(input.foto);
 	var ttd = helpers.decryptAES(input.ttd);
-	
+
 	try {
 		if (nik) {
 			if (sql.connect) sql.close();
 			var rows = await models_ektp.check_ektp(nik);
 			var data = rows.recordsets[0];
-			if (data.length > 0) {
-				console.log('NIK exists!');
-				res.send({error: {status: -1}, message: 'NIK exists!'});
-			}
-			else {
-				if (sql.connect) sql.close();
+			if (sql.connect) sql.close();
 				sql.connect(dbConf, function (err) {
 					var request = new sql.Request();
 					request.query("insert into ektp (create_date,issued_by,nik,nama,tmp_lahir,tgl_lahir,jns_kelamin,gol_darah,alamat,rt,rw,kel,kec,kab,prov,agama,status,pekerjaan,kewarganegaraan,masa_berlaku,biometric,foto,ttd) values ('"+create_date+"','"+issued_by+"','"+nik+"','"+nama+"','"+tmp_lahir+"','"+tgl_lahir+"','"+jns_kelamin+"','"+gol_darah+"','"+alamat+"','"+rt+"','"+rw+"','"+kel+"','"+kec+"','"+kab+"','"+prov+"','"+agama+"','"+status+"','"+pekerjaan+"','"+kewarganegaraan+"','"+masa_berlaku+"','"+biometric+"','"+foto+"','"+ttd+"')", function (err2, result2) {
@@ -53,7 +48,6 @@ exports.ektp = async function(req, res) {
 				sql.on('error', err => {
 					console.log(err);
 				})
-			}
 		}
 		else {
 			console.log('Failed insert data!');
@@ -62,5 +56,5 @@ exports.ektp = async function(req, res) {
 	}
 	catch (error){
 		console.log(error);
-	}
+	}	
 };

@@ -4,7 +4,7 @@ exports.get_users = function(username,pass) {
     var deferred = q.defer();
 	var pool = sql.connect(dbConf, function (err) {
 		var request = new sql.Request();
-		request.query("SELECT email,username,pass,fullname,create_date,access_date FROM users WHERE username='"+username+"' AND pass='"+helpers.generateHash(pass)+"'", function (err, result) {
+		request.query("SELECT * FROM users WHERE username='"+username+"' AND pass='"+helpers.generateHash(pass)+"'", function (err, result) {
 			if (err) {
 				deferred.reject(err);
 			}
@@ -18,4 +18,3 @@ exports.get_users = function(username,pass) {
 	})
     return deferred.promise;
 };
-
