@@ -13,6 +13,7 @@ exports.get_users = async function(req, res) {
 			if (sql.connect) sql.close();
 			var rows = await models_users.get_users(username,pass);
 			var data = rows.recordsets[0];
+			sql.close();
 			if (data.length > 0)
 				res.send({error: {status: 1}, users: rows.recordsets[0]});
 			else

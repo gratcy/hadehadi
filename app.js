@@ -16,7 +16,7 @@ const dbConf = {
     database: conf.mssql.db,
  
     options: {
-        encrypt: true
+        encrypt: false
     }
 }
 
