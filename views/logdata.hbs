@@ -1,0 +1,29 @@
+<h1>Data Log EKTP</h1>
+<p>&nbsp;</p>
+<table id="sTable" class="table table-bordered table-striped">
+<thead>
+  <tr>
+    <th>Create Date</th>
+    <th>Issued By</th>
+    <th>Access Date</th>
+    <th>Send Date</th>
+    <th>Status</th>
+    <th>Reason</th>
+  </tr>
+</thead>
+<tbody>
+{{#each logdata}}
+
+
+  <tr>
+    <td>{{ create_date }}</td>
+    <td>{{ fullname }}</td>
+    <td>{{ access_log }}</td>
+    <td>{{ send_log }}</td>
+    <td>{{ status_log }}</td>
+    <td>{{ reason_log }}</td>
+  </tr>
+{{/each}}
+</tbody>
+</table>
+
