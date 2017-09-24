@@ -41,6 +41,9 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var ektp = require('./routes/ektp');
 var show = require('./routes/show');
+var logs = require('./routes/logs');
+var show_logs = require('./routes/show_logs');
+
 
 app.set('port', config.web.port);
 app.set('host', config.web.host);
@@ -69,8 +72,10 @@ app.use('/assets', express.static('assets'));
 
 app.get('/', index.main);
 app.get('/data', show.view_data);
+app.get('/logdata', show_logs.view_logs);
 app.post('/users', users.get_users);
 app.post('/ektp', ektp.ektp);
+app.post('/logs', logs.logs);
 
 app.use(function(req, res, next){
 	res.send({time:new Date(), status: -1});
