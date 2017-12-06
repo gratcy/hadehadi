@@ -8,7 +8,7 @@ exports.view_data = async function(req, res) {
 		var data = [];
 		
 		for(var i=0;i<rows.rowsAffected;++i) {
-			rdata[i].create_date = helpers.convertTime(rdata[i].create_date);
+			rdata[i].created_date = helpers.convertTime(rdata[i].created_date);
 			data.push(rdata[i]);
 		}
 		
