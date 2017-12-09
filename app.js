@@ -78,6 +78,7 @@ app.post('/ektp', ektp.ektp);
 app.post('/logs', logs.logs);
 
 app.use(function(req, res, next){
+	req.defaultMaxListeners = 0;
 	res.send({time:new Date(), status: -1});
 });
 

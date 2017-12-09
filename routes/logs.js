@@ -1,4 +1,5 @@
 import models_logs from '../models/models_logs';
+var moment = require('moment');
 
 exports.logs = async function(req, res) {
 	var input = req.body;
@@ -6,14 +7,14 @@ exports.logs = async function(req, res) {
 	var created_by = helpers.decryptAES(input.created_by);
 	
 	var access_log = helpers.decryptAES(input.access_log);
-	var send_log = helpers.decryptAES(input.send_log);
+	var send_log = moment().valueOf();
 	var status_log = helpers.decryptAES(input.status_log);
 	var reason_log = helpers.decryptAES(input.reason_log);
 	console.log("+created_date+" + '\nAccess '+ access_log);
 	
 		
 	try {
-		if (issued_by) {
+		if (created_by) {
 			if (sql.connect) sql.close();
 			
 			sql.connect(dbConf, function (err) {
