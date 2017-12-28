@@ -27,6 +27,21 @@ exports.get_users = function(username,pass,macaddr) {
     return deferred.promise;
 };
 
+exports.get_user_detail = function(uid) {
+    var deferred = q.defer();
+	var pool = sql.connect(dbConf, function (err) {
+		var request = new sql.Request();
+		request.query("SELECT * FROM users WHERE userid='"+uid+"'", function (err, result) {
+			if (err) {
+				deferred.reject(err);
+			}
+			else {
+				deferred.resolve(result);
+			}
+		});
+	});
+    return deferred.promise;
+};
 
 exports.update_users = function(username,pass,macaddr) {
     var deferred = q.defer();

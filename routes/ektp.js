@@ -1,4 +1,6 @@
 import models_ektp from '../models/models_ektp';
+import models_users from '../models/models_users';
+
 var moment = require('moment');
 
 exports.ektp = async function(req, res) {
@@ -36,10 +38,12 @@ exports.ektp = async function(req, res) {
 	try {
 		if (nik) {
 			if (sql.connect) sql.close();
-			
+			let rcreatedby = await models_users.get_user_detail(created_by);
+			let username = rcreatedby[0].username || '';
+
 			sql.connect(dbConf, function (err) {
 				var request = new sql.Request();
-				request.query("insert into ektp (log_id, created_date,save_date,created_by,status,ektp_status,nik,nama_lkp,tmpt_lhr,tgl_lhr,jenis_klmin,gol_darah,alamat,no_rt,no_rw,kel_name,kec_name,kab_name,prop_name,agama,status_kawin,jenis_pkrjn,kewarganegaraan,masa_berlaku,biometric,foto,ttd,status_send,updated_by,updated_date) values ((SELECT TOP 1 id FROM log_data  WHERE created_by = '"+created_by+"' ORDER  BY id DESC),'"+created_date+"','"+save_date+"','"+created_by+"','"+status+"','"+ektp_status+"','"+nik+"','"+nama_lkp+"','"+tmpt_lhr+"','"+tgl_lhr+"','"+jenis_klmin+"','"+gol_darah+"','"+alamat+"','"+no_rt+"','"+no_rw+"','"+kel_name+"','"+kec_name+"','"+kab_name+"','"+prop_name+"','"+agama+"','"+status_kawin+"','"+jenis_pkrjn+"','"+kewarganegaraan+"','"+masa_berlaku+"','"+biometric+"','"+foto+"','"+ttd+"','"+status_send+"',(SELECT username FROM users WHERE uid = '"+created_by+"'),'"+save_date+"')", function (err2, result2) {
+				request.query("insert into ektp (log_id, created_date,save_date,created_by,status,ektp_status,nik,nama_lkp,tmpt_lhr,tgl_lhr,jenis_klmin,gol_darah,alamat,no_rt,no_rw,kel_name,kec_name,kab_name,prop_name,agama,status_kawin,jenis_pkrjn,kewarganegaraan,masa_berlaku,biometric,foto,ttd,status_send,updated_by,updated_date) values ((SELECT TOP 1 id FROM log_data  WHERE created_by = '"+created_by+"' ORDER  BY id DESC),'"+created_date+"','"+save_date+"','"+username+"','"+status+"','"+ektp_status+"','"+nik+"','"+nama_lkp+"','"+tmpt_lhr+"','"+tgl_lhr+"','"+jenis_klmin+"','"+gol_darah+"','"+alamat+"','"+no_rt+"','"+no_rw+"','"+kel_name+"','"+kec_name+"','"+kab_name+"','"+prop_name+"','"+agama+"','"+status_kawin+"','"+jenis_pkrjn+"','"+kewarganegaraan+"','"+masa_berlaku+"','"+biometric+"','"+foto+"','"+ttd+"','"+status_send+"','"+username+"','"+save_date+"')", function (err2, result2) {
 					if (err2) {
 						res.send({error: {status: 0}, message: 'Failed insert data!',err2});
 					}
