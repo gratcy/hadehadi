@@ -9,7 +9,7 @@ settings.mssql.user = 'sa';
 settings.mssql.password = 'Masabod0';
 settings.mssql.db = 'ektpreader';
 
-settings.web.host = "174.138.25.217";
+settings.web.host = "localhost";
 settings.web.port = 3000;
 
 module.exports = settings;

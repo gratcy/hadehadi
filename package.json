@@ -26,6 +26,7 @@
     "express-handlebars": "^3.0.0",
     "express-myconnection": "^1.0.4",
     "express-session": "^1.15.5",
+    "moment": "^2.20.1",
     "mssql": "^4.0.4",
     "q": "^1.5.0",
     "q-": "0.0.0",
