@@ -39,7 +39,9 @@ exports.ektp = async function(req, res) {
 		if (nik) {
 			if (sql.connect) sql.close();
 			let rcreatedby = await models_users.get_user_detail(created_by);
-			let username = rcreatedby[0].username || '';
+			let username = rcreatedby.recordset[0].username || '';
+
+			sql.close()
 
 			sql.connect(dbConf, function (err) {
 				var request = new sql.Request();

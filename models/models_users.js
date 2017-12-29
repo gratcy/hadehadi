@@ -31,7 +31,7 @@ exports.get_user_detail = function(uid) {
     var deferred = q.defer();
 	var pool = sql.connect(dbConf, function (err) {
 		var request = new sql.Request();
-		request.query("SELECT * FROM users WHERE userid='"+uid+"'", function (err, result) {
+		request.query("SELECT * FROM users WHERE uid='"+uid+"'", function (err, result) {
 			if (err) {
 				deferred.reject(err);
 			}
